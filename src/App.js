@@ -31,14 +31,14 @@ function App() {
 	};
 
 	const showAlert = (show = false, type = '', message = '') => {
-		setAlert({ show, type, message});
+		setAlert({ show, type, message });
 	};
 
 	return (
 		<section className="section-center">
 			<div className="grocery-container">
 				<form className="grocery-form" onSubmit={handleSubmit}>
-					{alert.show && <Alert {...alert} />}
+					{alert.show && <Alert {...alert} removeAlert={showAlert} />}
 					<h3>grocery bud</h3>
 					<div className="form-control">
 						<input
