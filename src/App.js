@@ -15,10 +15,12 @@ function App() {
 			//display alert
 		} else if (name && isEditing) {
 			// deal with edit
+		} else {
 			const newItem = {
 				id: new Date().getTime().toString(),
 				title: name,
 			};
+			setList([...list, newItem]);
 			setName('');
 		}
 	};
