@@ -2,9 +2,20 @@ import React, { useState, useEffect } from 'react';
 import List from './List';
 import Alert from './Alert';
 
+//run this function int he list state
+const getLocalStorage = () => {
+	let list = localStorage.getItem('list');
+
+	if (list) {
+		return JSON.parse(localStorage.getItem('list'));
+	} else {
+		return [];
+	}
+};
+
 function App() {
 	const [name, setName] = useState('');
-	const [list, setList] = useState([]);
+	const [list, setList] = useState(getLocalStorage());
 	const [isEditing, setIsEditing] = useState(false);
 	const [editID, setEditID] = useState(null);
 	const [alert, setAlert] = useState({
@@ -27,11 +38,11 @@ function App() {
 					}
 					return item;
 				})
-				);
-				setName('');
-				setEditID(null);
-				setIsEditing(false)
-				showAlert(true, 'success', 'Item edited');
+			);
+			setName('');
+			setEditID(null);
+			setIsEditing(false);
+			showAlert(true, 'success', 'Item edited');
 		} else {
 			showAlert(true, 'success', 'item added to the list');
 			const newItem = {
@@ -62,6 +73,10 @@ function App() {
 		setEditID(id);
 		setName(specificItem.title);
 	};
+
+	useEffect(() => {
+		localStorage.setItem('list', JSON.stringify(list));
+	}, [list]);
 
 	return (
 		<section className="section-center">
